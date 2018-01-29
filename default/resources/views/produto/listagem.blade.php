@@ -16,8 +16,13 @@
           <td> {{$p->quantidade}} </td>
           <td>
               <a href="/produtos/mostra/{{$p->id}}">
-                  <span class="glyphicon glyphicon-th-list"></span>
+                  <span class="glyphicon glyphicon-search"></span>
               </a>
+          </td>
+          <td> 
+            <a href="{{action('ProdutoController@remove', $p->id)}}"> 
+              <span class="glyphicon glyphicon-trash"></span>
+            </a>
           </td>
         </tr>
         @endforeach
@@ -28,4 +33,10 @@
         Um ou menos itens no estoque
       </span>
     </h4>
+    @if(old('nome'))
+      <div class="alert alert-success">
+        <strong>Sucesso!</strong> 
+            O produto {{ old('nome') }} foi adicionado.
+      </div>
+    @endif
 @stop
