@@ -1,9 +1,11 @@
 <?php 
 namespace estoque\Http\Controllers;
 
+use Validator;
 use DB;
 use Request;
 use estoque\Produto;
+use estoque\Http\Requests\ProdutoRequest;
 
 class ProdutoController extends Controller {
 
@@ -26,10 +28,30 @@ class ProdutoController extends Controller {
          return view('produto.formulario');
      }
 
-     public function adiciona()
+     public function adiciona(ProdutoRequest $request)
      {
-         Produto::create(Request::all());
-         return redirect()->action('ProdutoController@lista')->withInput(Request::only('nome'));
+         Produto::create($request->all());
+         return redirect()
+                ->action('ProdutoController@lista')
+                ->withInput(Request::only('nome'));
+     }
+     
+     public function edita($id)
+     {
+         $produto = Produto::find($id);
+         return view('produto.formulario')
+                ->with('produto', $produto);
+     }
+
+     public function altera($id, ProdutoRequest $request)
+     {
+         $parametros = $request->except(['_token']);
+         $produto = Produto::find($id);
+         $produto->update($parametros);
+        
+         return redirect()
+                ->action('ProdutoController@lista')
+                ->withInput(Request::only('nome'));
      }
      
      public function remove($id)
