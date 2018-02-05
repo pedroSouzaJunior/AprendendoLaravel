@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', function() {    
+Route::get('/', function() {
     return "<h1>Primeira Lógica em Laravel?<h1>";
 });
 
@@ -13,3 +13,6 @@ Route::get('/produtos/remove/{id}', 'ProdutoController@remove')->where('id', '[0
 Route::get('/produtos/novo', 'ProdutoController@novo');
 Route::match(array('GET', 'POST'), '/produtos/adiciona', 'ProdutoController@adiciona');
 Route::match(array('GET', 'PUT'), '/produtos/altera/{id}', 'ProdutoController@altera');
+
+
+Route::get('/produtos/velho', 'ProdutoController@novo');
