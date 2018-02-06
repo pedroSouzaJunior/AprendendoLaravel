@@ -35,6 +35,14 @@
     <label>Tamanho</label>
     <input name="tamanho" value="{{$produto->tamanho or ''}}" class="form-control" />
   </div>
+  <div class="form-group">
+    <label>Categoria</label>
+    <select class="form-control" name="categoria_id">
+      @foreach($categorias  as $categoria)
+        <option value="{{$categoria->id}}">{{$categoria->nome}}</option>
+      @endforeach
+    </select>
+  </div>
   <button class="btn btn-primary btn-block" type="submit">{{empty($produto) ? 'Adicionar' : 'Editar'}}</button>
 </form>
 @stop

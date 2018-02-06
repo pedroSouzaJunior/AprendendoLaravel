@@ -1,17 +1,18 @@
-<?php 
+<?php
 namespace estoque\Http\Controllers;
 
 use Validator;
 use DB;
 use Request;
 use estoque\Produto;
+use estoque\Categoria;
 use estoque\Http\Requests\ProdutoRequest;
 
 class ProdutoController extends Controller {
 
     public function lista()
     {
-        $produtos = Produto::all();        
+        $produtos = Produto::all();
         return view('produto.listagem')->withProdutos($produtos);
     }
 
@@ -19,23 +20,23 @@ class ProdutoController extends Controller {
      {
        $produto = Produto::find($id);
          if(empty($produto)) return "Esse produto não existe";
-            
+
          return view('produto.detalhes')->with('p',$produto);
      }
 
      public function novo()
      {
-         return view('produto.formulario');
+         return view('produto.formulario')->with('categorias', Categoria::all());
      }
 
      public function adiciona(ProdutoRequest $request)
      {
-         Produto::create($request->all());
+         Produto::create($request->except(['_token']));
          return redirect()
                 ->action('ProdutoController@lista')
                 ->withInput(Request::only('nome'));
      }
-     
+
      public function edita($id)
      {
          $produto = Produto::find($id);
@@ -48,12 +49,12 @@ class ProdutoController extends Controller {
          $parametros = $request->except(['_token']);
          $produto = Produto::find($id);
          $produto->update($parametros);
-        
+
          return redirect()
                 ->action('ProdutoController@lista')
                 ->withInput(Request::only('nome'));
      }
-     
+
      public function remove($id)
      {
          $produto = Produto::find($id);

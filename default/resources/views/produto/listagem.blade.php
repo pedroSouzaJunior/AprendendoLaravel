@@ -15,6 +15,7 @@
           <td> {{$p->descricao}} </td>
           <td> {{$p->quantidade}} </td>
           <td> {{$p->tamanho}} </td>
+          <td> {{ $p->categoria->nome }}</td>
           <td>
               <a href="{{action('ProdutoController@mostra', $p->id)}}">
                   <span class="glyphicon glyphicon-search"></span>
@@ -25,8 +26,8 @@
                   <span class="glyphicon glyphicon-pencil"></span>
               </a>
           </td>
-          <td> 
-            <a href="{{action('ProdutoController@remove', $p->id)}}"> 
+          <td>
+            <a href="{{action('ProdutoController@remove', $p->id)}}">
               <span class="glyphicon glyphicon-trash"></span>
             </a>
           </td>
@@ -41,7 +42,7 @@
     </h4>
     @if(old('nome'))
       <div class="alert alert-success">
-        <strong>Sucesso!</strong> 
+        <strong>Sucesso!</strong>
             O produto {{ old('nome') }} foi adicionado.
       </div>
     @endif
