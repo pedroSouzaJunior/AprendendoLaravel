@@ -41,7 +41,8 @@ class ProdutoController extends Controller {
      {
          $produto = Produto::find($id);
          return view('produto.formulario')
-                ->with('produto', $produto);
+                ->with('produto', $produto)
+                ->with('categorias', Categoria::all());
      }
 
      public function altera($id, ProdutoRequest $request)
